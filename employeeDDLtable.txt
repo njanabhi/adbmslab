@@ -1,0 +1,103 @@
+SQL> CREATE TABLE EMPOLYEE(EMPOLYEEID NUMBER(4) PRIMARYKEY,EMPLOYEENAME VARCHAR(40),AGE VARCHAR(40));
+CREATE TABLE EMPOLYEE(EMPOLYEEID NUMBER(4) PRIMARYKEY,EMPLOYEENAME VARCHAR(40),AGE VARCHAR(40))
+                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> CREATE TABLE EMPOLYEE(EMPOLYEEID NUMBER(4) PRIMARY KEY,EMPLOYEENAME VARCHAR(40),AGE VARCHAR(40));
+
+Table created.
+
+SQL> DESC EMPLOYEE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(38)
+ EMPNAME                                            VARCHAR2(10)
+ SALARY                                             NUMBER(38)
+ DOB                                                DATE
+ BRANCH                                             VARCHAR2(10)
+
+SQL> RENAME EMPOLYEE TO EMPLO1;
+
+Table renamed.
+
+SQL> DESC EMPLO1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPOLYEEID                                NOT NULL NUMBER(4)
+ EMPLOYEENAME                                       VARCHAR2(40)
+ AGE                                                VARCHAR2(40)
+
+SQL> ALTER TABLE EMPLO1 ADD ADDRESS VARCHAR(50);
+
+Table altered.
+
+SQL> DESC EMPLO1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPOLYEEID                                NOT NULL NUMBER(4)
+ EMPLOYEENAME                                       VARCHAR2(40)
+ AGE                                                VARCHAR2(40)
+ ADDRESS                                            VARCHAR2(50)
+
+SQL> ALTER TABLE EMPLO1 ADD SALARY NUMBER(50);
+ALTER TABLE EMPLO1 ADD SALARY NUMBER(50)
+                                     *
+ERROR at line 1:
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+
+SQL> ALTER TABLE EMPLO1 ADD SALARY NUMBER(10);
+
+Table altered.
+
+SQL> DESC EMPLO1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPOLYEEID                                NOT NULL NUMBER(4)
+ EMPLOYEENAME                                       VARCHAR2(40)
+ AGE                                                VARCHAR2(40)
+ ADDRESS                                            VARCHAR2(50)
+ SALARY                                             NUMBER(10)
+
+SQL> ALTER TABLE EMPLO1 ADD BRANCH VARCHAR(50);
+
+Table altered.
+
+SQL> DESC EMPLO1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPOLYEEID                                NOT NULL NUMBER(4)
+ EMPLOYEENAME                                       VARCHAR2(40)
+ AGE                                                VARCHAR2(40)
+ ADDRESS                                            VARCHAR2(50)
+ SALARY                                             NUMBER(10)
+ BRANCH                                             VARCHAR2(50)
+
+SQL> ALTER TABLE EMPLO1 ADD DOB NUMBER(10);
+
+Table altered.
+
+SQL> DESC EMPLO1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPOLYEEID                                NOT NULL NUMBER(4)
+ EMPLOYEENAME                                       VARCHAR2(40)
+ AGE                                                VARCHAR2(40)
+ ADDRESS                                            VARCHAR2(50)
+ SALARY                                             NUMBER(10)
+ BRANCH                                             VARCHAR2(50)
+ DOB                                                NUMBER(10)
+
+SQL> CREATE TABLE JOEL (JOELID NUMBER(10),JOELAGE NUMBER(10));
+
+Table created.
+
+SQL> DESC JOEL
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ JOELID                                             NUMBER(10)
+ JOELAGE                                            NUMBER(10)
+
+SQL> ALTER TABLE EMPLO1 ADD SALARY NUMBER(50);

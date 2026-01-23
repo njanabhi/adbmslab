@@ -1,0 +1,219 @@
+SQL> create table customer(customerid primary key,name varchar(15),city varchar(15));
+create table customer(customerid primary key,name varchar(15),city varchar(15))
+                      *
+ERROR at line 1:
+ORA-02263: need to specify the datatype for this column
+
+
+SQL> create table customer(customerid int primary key,name varchar(15),city varchar(15));
+
+Table created.
+
+SQL> desc customer
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMERID                                NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ CITY                                               VARCHAR2(15)
+
+SQL> create table product(productid int primary key,productname varchar(15),price number(10),customerid int,foreign key(customerid));
+create table product(productid int primary key,productname varchar(15),price number(10),customerid int,foreign key(customerid))
+                                                                                                                              *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> create table product(productid int primary key,productname varchar(15),price number(10),customerid int,foreign key(customerid) references customer(customerid));
+
+Table created.
+
+SQL> desc product
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCTID                                 NOT NULL NUMBER(38)
+ PRODUCTNAME                                        VARCHAR2(15)
+ PRICE                                              NUMBER(10)
+ CUSTOMERID                                         NUMBER(38)
+
+SQL> insert into customer values(1,'ali','kochi');
+
+1 row created.
+
+SQL> insert into customer values(2,'babu','tvm');
+
+1 row created.
+
+SQL> insert into customer values(3,'chitra','kollam');
+
+1 row created.
+
+SQL> insert into customer values(4,'siva','ktym');
+
+1 row created.
+
+SQL> insert into customer values(5,'sandy','tvm');
+
+1 row created.
+
+SQL> insert into product values(101,'laptop',55000,1);
+
+1 row created.
+
+SQL> insert into product values(102,'mobile',25000,2);
+
+1 row created.
+
+SQL> insert into product values(103,'tablet',20000,3);
+
+1 row created.
+
+SQL> insert into product values(104,'printer',30000,4);
+
+1 row created.
+
+SQL> insert into product values(105,'monitor',50000,5);
+
+1 row created.
+
+SQL> select * from customer;
+
+CUSTOMERID NAME            CITY
+---------- --------------- ---------------
+         1 ali             kochi
+         2 babu            tvm
+         3 chitra          kollam
+         4 siva            ktym
+         5 sandy           tvm
+
+SQL> select * from product;
+
+ PRODUCTID PRODUCTNAME          PRICE CUSTOMERID
+---------- --------------- ---------- ----------
+       101 laptop               55000          1
+       102 mobile               25000          2
+       103 tablet               20000          3
+       104 printer              30000          4
+       105 monitor              50000          5
+
+SQL> select name,city from customer
+  2
+SQL> select name,city from customer;
+
+NAME            CITY
+--------------- ---------------
+ali             kochi
+babu            tvm
+chitra          kollam
+siva            ktym
+sandy           tvm
+
+SQL> select * from customer where city='kochi';
+
+CUSTOMERID NAME            CITY
+---------- --------------- ---------------
+         1 ali             kochi
+
+SQL> select * from product where price>15000;
+
+ PRODUCTID PRODUCTNAME          PRICE CUSTOMERID
+---------- --------------- ---------- ----------
+       101 laptop               55000          1
+       102 mobile               25000          2
+       103 tablet               20000          3
+       104 printer              30000          4
+       105 monitor              50000          5
+
+SQL> select customerid,count(*)as totalproducts from product group by customerid;
+
+CUSTOMERID TOTALPRODUCTS
+---------- -------------
+         1             1
+         2             1
+         4             1
+         5             1
+         3             1
+
+SQL> select customerid,avg(price
+  2
+SQL>
+SQL>
+SQL>
+SQL>
+SQL>
+SQL> select customerid,avg(price)as avgprice from product group by customerid;
+
+CUSTOMERID   AVGPRICE
+---------- ----------
+         1      55000
+         2      25000
+         4      30000
+         5      50000
+         3      20000
+
+SQL> select customerid,avg(price)as avgprice from product group by customerid having avg(price)>12000;
+
+CUSTOMERID   AVGPRICE
+---------- ----------
+         1      55000
+         2      25000
+         4      30000
+         5      50000
+         3      20000
+
+SQL> select * from product order by price asc;
+
+ PRODUCTID PRODUCTNAME          PRICE CUSTOMERID
+---------- --------------- ---------- ----------
+       103 tablet               20000          3
+       102 mobile               25000          2
+       104 printer              30000          4
+       105 monitor              50000          5
+       101 laptop               55000          1
+
+SQL> select * from customer order by name desc;
+
+CUSTOMERID NAME            CITY
+---------- --------------- ---------------
+         4 siva            ktym
+         5 sandy           tvm
+         3 chitra          kollam
+         2 babu            tvm
+         1 ali             kochi
+
+SQL> select * from customer where customerid in (select customerid from product where price>15000);
+
+CUSTOMERID NAME            CITY
+---------- --------------- ---------------
+         1 ali             kochi
+         2 babu            tvm
+         3 chitra          kollam
+         4 siva            ktym
+         5 sandy           tvm
+
+SQL> select * from product where price= (select max(price)from product);
+
+ PRODUCTID PRODUCTNAME          PRICE CUSTOMERID
+---------- --------------- ---------- ----------
+       101 laptop               55000          1
+
+SQL> create view productcustomer as select p.productname,p.price,c.name as customername from product p join customer c on p.customerid=c.customerid;
+
+View created.
+
+SQL> select * from productcustomer
+  2  select * from productcustomer;
+select * from productcustomer
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select * from productcustomer;
+
+PRODUCTNAME          PRICE CUSTOMERNAME
+--------------- ---------- ---------------
+laptop               55000 ali
+mobile               25000 babu
+tablet               20000 chitra
+printer              30000 siva
+monitor              50000 sandy

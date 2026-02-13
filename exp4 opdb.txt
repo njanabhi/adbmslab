@@ -1,0 +1,255 @@
+Connected.
+SQL> create table location(locid int primary key,city varchar(15));
+
+Table created.
+create table department(deptid int primary key,deptname varchar(15),locid int ,foreign key(locid)references location(locid));
+
+Table created.
+create table job(jobid int primary key,jobtitle varchar(15),minsalary number(10),maxsalary number(10));
+
+Table created.
+
+SQL> desc job
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ JOBID                                     NOT NULL NUMBER(38)
+ JOBTITLE                                           VARCHAR2(15)
+ MINSALARY                                          NUMBER(10)
+ MAXSALARY                                          NUMBER(10)
+
+ create table employeee(empid int primary key,empname varchar(15),salary number(10),jobid int,deptid int,foreign key(jobid)references job(jobid),foreign key(deptid)references departmentt(deptid));
+ insert into location values(1,'kochi');
+
+1 row created.
+
+SQL> insert into location values(2,'trivandrum');
+
+1 row created.
+
+SQL> insert into location values(3,'kozhikod');
+
+1 row created.
+
+SQL> insert into location values(4,'kollam');
+
+1 row created.
+
+SQL> insert into location values(5,'kottayam');
+
+1 row created.
+ insert into departmentt values(10,'hr',1);
+
+1 row created.
+
+SQL> insert into departmentt values(20,'finance',2);
+
+1 row created.
+
+SQL> insert into departmentt values(30,'it',3);
+
+1 row created.
+
+SQL> insert into departmentt values(40,'hr',4);
+
+1 row created.
+
+SQL> insert into departmentt values(50,'it',5);
+
+1 row created.
+
+SQL> insert into job values(100,'manager',50000,100000);
+
+1 row created.
+
+SQL> insert into job values(101,'developer',30000,70000);
+
+1 row created.
+
+SQL> insert into job values(102,'clerk',20000,40000);
+
+1 row created.
+
+SQL> insert into job values(103,'staff',25000,40000);
+
+1 row created.
+
+SQL> insert into job values(104,'tester',35000,60000);
+
+1 row created.
+ insert into employeee values(1,'arya',60000,100,10);
+
+1 row created.
+
+SQL> insert into employeee values(2,'devi',40000,101,30);
+
+1 row created.
+
+SQL> insert into employeee values(3,'athira',25000,102,20);
+
+1 row created.
+
+SQL> insert into employeee values(4,'tini',35000,101,40);
+
+1 row created.
+
+SQL> insert into employeee values(5,'bini',29000,103,null);
+
+1 row created.
+
+SQL> desc employeee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL NUMBER(38)
+ EMPNAME                                            VARCHAR2(15)
+ SALARY                                             NUMBER(10)
+ JOBID                                              NUMBER(38)
+ DEPTID                                             NUMBER(38)
+
+SQL> desc departmentt
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTID                                    NOT NULL NUMBER(38)
+ DEPTNAME                                           VARCHAR2(15)
+ LOCID                                              NUMBER(38)
+ select e.empname,j.jobtitle from employeee e inner join job j on e.jobid=j.jobid;
+
+EMPNAME         JOBTITLE
+--------------- ---------------
+arya            manager
+tini            developer
+devi            developer
+athira          clerk
+bini            staff
+ select e.empname,d.deptname from employeee e left join departmentt d on e.deptid=d.deptid;
+
+EMPNAME         DEPTNAME
+--------------- ---------------
+arya            hr
+athira          finance
+devi            it
+tini            hr
+bini
+
+SQL> select d.deptname,e.empname from departmentt d right join employeee e on d.deptid=e.deptid;
+
+DEPTNAME        EMPNAME
+--------------- ---------------
+hr              arya
+finance         athira
+it              devi
+hr              tini
+                bini
+
+SQL> select d.deptname,sum(e.salary)as totalsalary from employeee e join departmentt d on e.deptid=d.deptid group by d.deptname;
+
+DEPTNAME        TOTALSALARY
+--------------- -----------
+hr                    95000
+finance               25000
+it                    40000
+
+SQL> select j.jobtitle,avg(e.salary)as avgsalary from employeee e join job j on e.jobid=j.jobid group by j.jobtitle;
+
+JOBTITLE         AVGSALARY
+--------------- ----------
+developer            37500
+clerk                25000
+staff                29000
+manager              60000
+
+SQL> select min(salary)as minsalary from employeee;
+
+ MINSALARY
+----------
+     25000
+
+SQL> select max(e.salary)as maxsalary from employeee e join departmentt d on e.deptid=d.deptid where d.deptname='it';
+
+ MAXSALARY
+----------
+     40000
+
+SQL> select empname from employeee where empname like'a%';
+
+EMPNAME
+---------------
+arya
+athira
+
+SQL>
+SQL> select empname from employeee where empname like'%a';
+
+EMPNAME
+---------------
+arya
+athira
+
+SQL> select empname from employeee where deptid in(10,20);
+
+EMPNAME
+---------------
+arya
+athira
+
+SQL> select empname from employeee where deptid not in(30);
+
+EMPNAME
+---------------
+arya
+athira
+tini
+
+SQL> select empname from employeee e join departmentt d on e.deptid=d.deptid where salary<25000 or d.deptname='hr';
+
+EMPNAME
+---------------
+arya
+tini
+
+SQL> select empname from employeee e join departmentt d on e.deptid=d.deptid where salary>30000 or d.deptname='it';
+
+EMPNAME
+---------------
+arya
+devi
+tini
+
+SQL> select empname,salary from employeee where salary between 300000 and 500000;
+
+no rows selected
+
+SQL> select empname,salary from employeee where salary between 300000 and 500000;
+
+no rows selected
+
+SQL> select * from employeee
+  2
+SQL> select * from employeee;
+
+     EMPID EMPNAME             SALARY      JOBID     DEPTID
+---------- --------------- ---------- ---------- ----------
+         1 arya                 60000        100         10
+         2 devi                 40000        101         30
+         3 athira               25000        102         20
+         4 tini                 35000        101         40
+         5 bini                 29000        103
+
+SQL> select empname,salary from employeee where salary between 300000 and 500000;
+
+no rows selected
+
+SQL> select empname,salary from employeee where salary between 30000 and 50000;
+
+EMPNAME             SALARY
+--------------- ----------
+devi                 40000
+tini                 35000
+
+SQL> select jobtitle,minsalary from job where minsalary between 25000 and 60000;
+
+JOBTITLE         MINSALARY
+--------------- ----------
+manager              50000
+developer            30000
+staff                25000
+tester               35000

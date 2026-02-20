@@ -1,0 +1,92 @@
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENTID                                 NOT NULL NUMBER(5)
+ STUDENTNAME                                        VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ DEPARTMENT                                         VARCHAR2(15)
+
+SQL> insert into studz values(1,'abu',99,'bba');
+insert into studz values(1,'abu',99,'bba')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into stuz values(1,'abu',99,'bba');
+
+1 row created.
+
+SQL> select * from stuz ;
+
+ STUDENTID STUDENTNAME            AGE DEPARTMENT
+---------- --------------- ---------- ---------------
+         1 abu                     99 bba
+
+SQL> insert into studz values(2,'mubu',69,'ma');
+insert into studz values(2,'mubu',69,'ma')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into stuz values(2,'mubu',69,'ma');
+
+1 row created.
+
+SQL> select * from stuz ;
+
+ STUDENTID STUDENTNAME            AGE DEPARTMENT
+---------- --------------- ---------- ---------------
+         1 abu                     99 bba
+         2 mubu                    69 ma
+
+SQL> insert into stuz values(3,'bubu',3,'llb');
+
+1 row created.
+
+SQL> select * from stuz ;
+
+ STUDENTID STUDENTNAME            AGE DEPARTMENT
+---------- --------------- ---------- ---------------
+         1 abu                     99 bba
+         2 mubu                    69 ma
+         3 bubu                     3 llb
+
+SQL> update stuz set age=4 where studentid=3;
+
+1 row updated.
+
+SQL> select * from stuz ;
+
+ STUDENTID STUDENTNAME            AGE DEPARTMENT
+---------- --------------- ---------- ---------------
+         1 abu                     99 bba
+         2 mubu                    69 ma
+         3 bubu                     4 llb
+
+SQL> insert into stuz values(4,'tubu',10,'mcom');
+
+1 row created.
+
+SQL> select * from stuz ;
+
+ STUDENTID STUDENTNAME            AGE DEPARTMENT
+---------- --------------- ---------- ---------------
+         1 abu                     99 bba
+         2 mubu                    69 ma
+         3 bubu                     4 llb
+         4 tubu                    10 mcom
+
+SQL> delete from stuz where studentid=4;
+
+1 row deleted.
+
+SQL> select * from stuz ;
+
+ STUDENTID STUDENTNAME            AGE DEPARTMENT
+---------- --------------- ---------- ---------------
+         1 abu                     99 bba
+         2 mubu                    69 ma
+         3 bubu                     4 llb
+
+SQL>

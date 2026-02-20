@@ -253,17 +253,3 @@ manager              50000
 developer            30000
 staff                25000
 tester               35000
-
- select empname from employeee where jobid=100 union select empname from employeee where jobid=101;
-
-EMPNAME
----------------
-arya
-devi
-tini
-
-SQL> select * from employeee where deptid=30 and salary >35000;
-
-     EMPID EMPNAME             SALARY      JOBID     DEPTID
----------- --------------- ---------- ---------- ----------
-         2 devi                 40000        101         30

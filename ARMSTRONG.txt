@@ -1,0 +1,17 @@
+declare
+n number:=&n;
+sum number:=0;
+rem number;
+temp number:=n;
+begin
+while n>0 loop
+rem:=mod(n,10);
+sum:=sum +rem*rem*rem;
+n=trunc(n/10);
+end loop;
+if sum=temp then
+dbms_output.put_line(temp||'is armstrong');
+else
+dbms_output.put_line(temp||'is note armstrong');
+end if;
+end;

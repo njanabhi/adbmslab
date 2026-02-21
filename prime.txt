@@ -1,0 +1,21 @@
+declare
+n number:=&n;
+i number;
+c number:=0;
+begin
+if n<2 then
+dbms_output.put_line('the number '||n||'is not prime');
+else
+for i in 2..n-1 loop
+if mod(n,i)=0 then
+c:=1;
+exit;
+end if;
+end loop;
+if c=0 then
+dbms_output.put_line('the number'||n||'is prime');
+else
+dbms_output.put_line('the number'||n||'is not');
+end if;
+end if;
+end;

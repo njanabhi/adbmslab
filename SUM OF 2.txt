@@ -1,0 +1,18 @@
+create or replace function fun1(a number, b number)
+return
+number is c number;
+begin c:=a+b;
+return c;
+end;
+
+
+declare x number:=&x;
+y number:=&y;
+z number;
+begin z:=fun1(x,y);
+dbms_output.put_line(' Sum is ' ||  z );
+end;
+
+Sum is 8
+
+PL/SQL procedure successfully completed.

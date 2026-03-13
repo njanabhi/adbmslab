@@ -1,0 +1,20 @@
+CREATE OR REPLACE PROCEDURE FINDGreatest(num1 IN NUMBER, num2 IN NUMBER, num3 IN NUMBER,result OUT NUMBER) AS
+BEGIN
+IF num1>=num2 AND num1>=num3 THEN
+result:=num1;
+ELSIF
+num2>=num1 AND num2>=num3 THEN
+result:=num2;
+ELSE result:=num3;
+END IF;
+END FindGreatest;
+
+DECLARE greatest_num NUMBER;
+BEGIN FindGreatest(10,25,15,greatest_num);
+DBMS_OUTPUT.PUT_LINE('The greatest number is:' || greatest_num);
+END;
+
+DROP PROCEDURE PR1;
+
+
+The greatest number is:25

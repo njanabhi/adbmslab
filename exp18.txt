@@ -1,0 +1,39 @@
+ create table employyy1(eno number(4),ename varchar(14),dgn varchar(14),sal number(7),deptno number(3));
+
+Table created.
+
+
+SQL> insert into employyy1 values(1010,'sree','manager',50000,12);
+
+1 row created.
+
+SQL> insert into employyy1 values(1011,'reema','engineer',25000,13);
+SQL> insert into employyy1 values(1012,'anjana','tester',25000,14);
+ create or replace function fn2(n number)
+  2  return number
+  3  is
+  4  s employyy1.sal%type;
+  5  begin
+  6  select sal into s
+  7  from employyy1
+  8  where eno=n;
+  9  return s*0.10;
+ 10  end;
+ 11  /
+
+Function created.
+
+SQL> declare
+  2  n employyy1.eno%type:=&n;
+  3  comm number;
+  4  begin
+  5  comm:=fn2(n);
+  6  dbms_output.put_line('commision is'||comm);
+  7  end;
+  8  /
+Enter value for n: 1012
+old   2: n employyy1.eno%type:=&n;
+new   2: n employyy1.eno%type:=1012;
+commision is2500
+
+PL/SQL procedure successfully completed.

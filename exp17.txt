@@ -1,0 +1,38 @@
+ create table employyy1(eno number(4),ename varchar(14),dgn varchar(14),sal number(7),deptno number(3));
+
+Table created.
+
+
+SQL> insert into employyy1 values(1010,'sree','manager',50000,12);
+
+1 row created.
+
+SQL> insert into employyy1 values(1011,'reema','engineer',25000,13);
+SQL> insert into employyy1 values(1012,'anjana','tester',25000,14);
+ create or replace procedure pr2
+  2  (p_eno in employyy1.eno%type,p_comm out number)
+  3  as
+  4  begin
+  5  select sal*0.10
+  6  into p_comm
+  7  from employyy1
+  8  where eno=p_eno;
+  9  end;
+ 10  /
+
+Procedure created.
+
+SQL> declare
+  2  n employyy1.eno%type:=&n;
+  3  comm number;
+  4  begin
+  5  pr2(n,comm);
+  6  dbms_output.put_line('commision is'||comm);
+  7  end;
+  8  /
+Enter value for n: 1012
+old   2: n employyy1.eno%type:=&n;
+new   2: n employyy1.eno%type:=1012;
+commision is2500
+
+PL/SQL procedure successfully completed.

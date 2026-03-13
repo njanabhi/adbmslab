@@ -1,0 +1,33 @@
+ create table employyy1(eno number(4),ename varchar(14),dgn varchar(14),sal number(7),deptno number(3));
+
+Table created.
+
+
+SQL> insert into employyy1 values(1010,'sree','manager',50000,12);
+
+1 row created.
+
+SQL> insert into employyy1 values(1011,'reema','engineer',25000,13);
+SQL> insert into employyy1 values(1012,'anjana','tester',25000,14);
+create or replace trigger t12
+  2  before insert or update on employyy1
+  3  for each row
+  4  declare
+  5  ctr number;
+  6  begin
+  7  select count(*)
+  8  into ctr
+  9  from employyy1
+ 10  where eno=:new.eno;
+ 11  if ctr>0 then
+ 12  raise_application_error(-20003,'duplication not possible');
+ 13  end if;
+ 14  end;
+ 15  /
+insert into employyy1 values (1010,'ravi','clerk',1500,16);
+insert into employyy1 values (1010,'ravi','clerk',1500,16)
+            *
+ERROR at line 1:
+ORA-20003: duplication not possible
+ORA-06512: at "SYSTEM.T12", line 9
+ORA-04088: error during execution of trigger 'SYSTEM.T12'

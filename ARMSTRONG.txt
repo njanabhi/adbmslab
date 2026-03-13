@@ -15,5 +15,3 @@ else
 dbms_output.put_line(temp||'is not armstrong');
 end if;
 end;
-
-

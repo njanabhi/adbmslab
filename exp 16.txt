@@ -1,0 +1,27 @@
+ create table employyy(eno number(4),ename varchar(14),dgn varchar(14),sal number(7),deptno number(3));
+insert into employy values(1010,'sree','manager',50000,12);
+
+1 row created.
+
+SQL> insert into employyy values(1011,'reema','engineer',25000,13);
+
+1 row created.
+
+SQL> insert into employyy values(1012,'anjana','tester',25000,14);
+
+1 row created.
+
+SQL> set serveroutput on
+SQL> > declare
+  2  n number(4):=&n;
+  3  en varchar(20);
+  4  s number(7);
+  5  begin
+  6  select eno,ename,sal into n,en,s from employyy where eno=n;
+  7  dbms_output.put_line(n|| ' '||en||' '||s);
+  8  end;
+  9  /
+Enter value for n: 1012
+old   2: n number(4):=&n;
+new   2: n number(4):=1012;
+1012 anjana 25000
